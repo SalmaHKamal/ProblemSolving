@@ -3,5 +3,6 @@
     <pages>
         <page name='FlippingBits'/>
         <page name='DivisibleSumPairs'/>
+        <page name='DiagonalDifference'/>
     </pages>
 </playground>
