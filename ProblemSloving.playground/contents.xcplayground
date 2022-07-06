@@ -6,5 +6,6 @@
         <page name='DiagonalDifference'/>
         <page name='LinkedList'/>
         <page name='CountingSort'/>
+        <page name='CountingValley'/>
     </pages>
 </playground>
