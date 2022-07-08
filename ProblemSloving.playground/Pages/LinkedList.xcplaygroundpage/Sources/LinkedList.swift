@@ -21,6 +21,7 @@ extension LinkedList: CustomStringConvertible {
 extension LinkedList {
 	/// Adds a value at the front of the list [O(1)]
 	public mutating func push(_ value: Value) {
+		copyNodes()
 		head = Node(value: value, next: head)
 		if tail == nil {
 			tail = head
@@ -29,6 +30,7 @@ extension LinkedList {
 	
 	/// Adds a value at the end of the list [O(1)]
 	public mutating func append(_ value: Value) {
+		copyNodes()
 		// 1
 		guard !isEmpty else {
 			push(value)
@@ -57,6 +59,7 @@ extension LinkedList {
 	//1
 	@discardableResult
 	public mutating func insert(_ value: Value, after node: Node<Value>) -> Node<Value> {
+		copyNodes()
 		// 2
 		guard tail !== node else {
 			append(value)
@@ -70,6 +73,7 @@ extension LinkedList {
 	/// Removing a value at the front of the list
 	@discardableResult
 	public mutating func pop() -> Value? {
+		copyNodes()
 		defer {
 			head = head?.next
 			if isEmpty {
@@ -81,6 +85,7 @@ extension LinkedList {
 	
 	@discardableResult
 	public mutating func removeLast() -> Value? {
+		copyNodes()
 		// 1
 		guard let head = head else {
 			return nil
@@ -104,6 +109,7 @@ extension LinkedList {
 	
 	@discardableResult
 	public mutating func remove(after node: Node<Value>) -> Value? {
+		copyNodes()
 		defer {
 			if node.next === tail {
 				tail = node
@@ -114,6 +120,7 @@ extension LinkedList {
 	}
 }
 
+// MARK: - Implement Collection Nature
 extension LinkedList: Collection {
 	// 1
 	public var startIndex: Index {
@@ -151,5 +158,22 @@ extension LinkedList: Collection {
 			let nodes = sequence(first: lhs.node) { $0?.next }
 			return nodes.contains { $0 === rhs.node }
 		}
+	}
+}
+
+// MARK: - Implement COW: copy-on-write nature
+extension LinkedList {
+	private mutating func copyNodes() {
+		guard var oldNode = head else {
+			return
+		}
+		head = Node(value: oldNode.value)
+		var newNode = head
+		while let nextOldNode = oldNode.next {
+			newNode!.next = Node(value: nextOldNode.value)
+			newNode = newNode!.next
+			oldNode = nextOldNode
+		}
+		tail = newNode
 	}
 }
