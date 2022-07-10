@@ -7,5 +7,6 @@
         <page name='LinkedList'/>
         <page name='CountingSort'/>
         <page name='CountingValley'/>
+        <page name='Pangrams'/>
     </pages>
 </playground>
