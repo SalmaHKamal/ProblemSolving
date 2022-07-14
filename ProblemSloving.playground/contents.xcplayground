@@ -9,5 +9,6 @@
         <page name='CountingValley'/>
         <page name='Pangrams'/>
         <page name='MarsExploration'/>
+        <page name='PermutingTwoArrays'/>
     </pages>
 </playground>
