@@ -11,5 +11,6 @@
         <page name='MarsExploration'/>
         <page name='PermutingTwoArrays'/>
         <page name='SalesByMatch'/>
+        <page name='MigratoryBirds'/>
     </pages>
 </playground>
